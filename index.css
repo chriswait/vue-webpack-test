@@ -15,6 +15,14 @@ html, body {
   --radius: 3px;
 }
 
+button {
+  font-size: inherit;
+  font-family: inherit;
+  padding: 0;
+  outline: inherit;
+  border: 0;
+}
+
 .calculator-container {
   display: grid;
   width: calc(var(--button-width) * 4);
