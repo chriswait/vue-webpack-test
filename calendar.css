@@ -104,8 +104,12 @@ ul {
 .day-name {
   text-align: right;
   border-bottom: 1px solid var(--stroke-dark);
+  padding-right: var(--block-small);
 }
 
 .day {
   border: var(--day-border);
+  padding-top: 6px;
+  padding-right: var(--block-small);
+  text-align: right;
 }
