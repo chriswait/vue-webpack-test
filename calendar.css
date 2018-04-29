@@ -18,6 +18,12 @@ html, body {
   margin: 0;
 }
 
+ul {
+  padding: initial;
+  list-style-type: none;
+  margin: inherit;
+}
+
 .app-container {
   height: 100vh;
   display: flex;
@@ -44,6 +50,26 @@ html, body {
 .sidebar {
   width: 200px;
   background-color: var(--sidebar-background);
+  display: flex;
+  flex-direction: column;
+}
+.sidebar-calendars {
+  flex-grow: 1;
+  overflow-y: scroll;
+  padding: 8px 6px;
+}
+.account {
+  padding-bottom: 8px;
+}
+.account-name {
+  font-size: var(--small);
+}
+.calendar-name {
+  padding-left: 11px;
+}
+.sidebar-months {
+  border-top: 1px solid var(--stroke-light);
+  height: 164px;
 }
 
 .month-container {
