@@ -5,9 +5,12 @@ html, body {
   --button-width: 57px;
   --button-height: 48px;
   --orange: #f5923e;
+  --orange-pressed: #bd6821;
   --grey-dark: #8f8e8e;
   --grey-mid: #d6d6d6;
+  --grey-mid-pressed: #a9a9a9;
   --grey-light: #e0e0e0;
+  --grey-light-pressed: #a09fa0;
   --text-dark: black;
   --text-light: white;
   --stroke: #8e8e8e;
@@ -55,6 +58,9 @@ button {
   text-align: center;
   cursor: pointer;
 }
+.calculator-button:active {
+  background-color: var(--grey-light-pressed);
+}
 .calculator-button:last-child {
   border-bottom-right-radius: var(--radius);
 }
@@ -69,6 +75,14 @@ button {
   color: white;
   background-color: var(--orange);
 }
+.operator:active {
+  color: var(--grey-light-pressed);
+  background-color: var(--orange-pressed);
+}
+
 .top-row {
   background-color: var(--grey-mid);
+}
+.top-row:active {
+  background-color: var(--grey-mid-pressed);
 }
