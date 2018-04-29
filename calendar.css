@@ -1,0 +1,51 @@
+html {
+  --border: 1px solid black;
+}
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.app-container {
+  height: 100%;
+}
+
+.app-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.calendar-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.sidebar {
+  width: 200px;
+}
+
+.month-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.days-header {
+  display: flex;
+  justify-content: space-between;
+}
+.days-container {
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(7, 7fr);
+  grid-template-rows: 20px repeat(6, 6fr);
+}
+
+.day-name {
+  text-align: right;
+}
+
+.day {
+  border: var(--border);
+}
