@@ -1,7 +1,44 @@
-html, body {
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  font-weight: 300;
-  font-size: 20px;
+<template>
+  <div>
+    <div class="calculator-container">
+      <div class="screen">0</div>
+
+      <button class="calculator-button top-row">AC</button>
+      <button class="calculator-button top-row">&PlusMinus;</button>
+      <button class="calculator-button top-row">&percnt;</button>
+      <button class="calculator-button operator">&divide;</button>
+
+      <button class="calculator-button">7</button>
+      <button class="calculator-button">8</button>
+      <button class="calculator-button">9</button>
+      <button class="calculator-button operator">&times;</button>
+
+      <button class="calculator-button">4</button>
+      <button class="calculator-button">5</button>
+      <button class="calculator-button">6</button>
+      <button class="calculator-button operator">&minus;</button>
+
+      <button class="calculator-button">1</button>
+      <button class="calculator-button">2</button>
+      <button class="calculator-button">3</button>
+      <button class="calculator-button operator">&plus;</button>
+
+      <button class="calculator-button zero">0</button>
+      <button class="calculator-button">.</button>
+      <button class="calculator-button operator">&equals;</button>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+button {
+  font-size: inherit;
+  font-family: inherit;
+  padding: 0;
+  outline: inherit;
+  border: 0;
+}
+.calculator-container {
   --button-width: 57px;
   --button-height: 48px;
   --orange: #f5923e;
@@ -16,17 +53,11 @@ html, body {
   --stroke: #8e8e8e;
   --border: 1px solid var(--stroke);
   --radius: 3px;
-}
 
-button {
-  font-size: inherit;
-  font-family: inherit;
-  padding: 0;
-  outline: inherit;
-  border: 0;
-}
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+  font-size: 20px;
 
-.calculator-container {
   display: grid;
   width: calc(var(--button-width) * 4);
   grid-template-columns: repeat(4, var(--button-width));
@@ -86,3 +117,4 @@ button {
 .top-row:active {
   background-color: var(--grey-mid-pressed);
 }
+</style>
