@@ -1,6 +1,16 @@
 <template>
   <div class="day">
-    {{ number }}
+    <div class="date">
+      {{ number }}
+    </div>
+    <div class="events">
+      <div
+        v-for="(event, index) of events"
+        :key="index"
+        class="event">
+        {{ event.name }}
+      </div>
+    </div>
   </div>
 </template>
 
@@ -8,13 +18,18 @@
 export default {
   name: 'CalendarDay',
   props: {
-    id: {
-      type: Number,
-      default: 0
+    moment: {
+      type: Object,
+      default: null
     },
-    number: {
-      type: Number,
-      default: 0
+    events: {
+      type: Array,
+      default: () => []
+    }
+  },
+  computed: {
+    number: function () {
+      return this.moment.date()
     }
   }
 }
@@ -22,9 +37,11 @@ export default {
 
 <style scoped>
 .day {
+  --day-border: 1px solid var(--stroke-light);
   border: var(--day-border);
-  padding-top: 6px;
-  padding-right: var(--block-small);
+  padding: 5%;
+}
+.date {
   text-align: right;
 }
 </style>

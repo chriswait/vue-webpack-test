@@ -13,8 +13,13 @@
   },
   "jest": {
     "collectCoverage": true,
-    "moduleFileExtensions": ["js", "vue"],
-    "moduleDirectories": ["node_modules"],
+    "moduleFileExtensions": [
+      "js",
+      "vue"
+    ],
+    "moduleDirectories": [
+      "node_modules"
+    ],
     "moduleNameMapper": {
       "^@/(.*)$": "<rootDir>/src/$1"
     },
@@ -27,6 +32,7 @@
     ]
   },
   "dependencies": {
+    "moment": "^2.22.1",
     "vue": "^2.5.16",
     "webpack": "^4.7.0"
   },

@@ -54,9 +54,9 @@
           <div class="day-name">Sat</div>
 
           <calendar-day
-            v-for="day in days"
+            v-for="(day, index) in days"
             v-bind="day"
-            :key="day.id"
+            :key="index"
             class="day"/>
         </div>
       </div>
@@ -66,13 +66,9 @@
 
 <script>
 import CalendarDay from './CalendarDay.vue'
-var calDays = []
-for (let i = 0; i < 7 * 6; i++) {
-  calDays.push({
-    id: i,
-    number: (i + 1) % 30
-  })
-}
+import moment from 'moment'
+
+const NUM_WEEKS = 6
 
 export default {
   components: {
@@ -80,7 +76,19 @@ export default {
   },
   data () {
     return {
-      days: calDays
+      startDateMoment: moment('2018-04-01')
+    }
+  },
+  computed: {
+    days: function () {
+      let calDays = []
+      for (let i = 0; i < 7 * NUM_WEEKS; i++) {
+        calDays.push({
+          moment: this.startDateMoment.clone().add(i, 'day'),
+          events: [{name: 'test'}, {name: 'test'}]
+        })
+      }
+      return calDays
     }
   }
 }
@@ -95,7 +103,6 @@ export default {
   --stroke-dark: #e2e1e2;
   --sidebar-background: #f4f4f4;
   --day-weekend-background: #f3f3f3;
-  --day-border: 1px solid var(--stroke-light);
   --small: 13px;
   --large: 24px;
   --block-small: 12px;
@@ -182,6 +189,6 @@ export default {
 .day-name {
   text-align: right;
   border-bottom: 1px solid var(--stroke-dark);
-  padding-right: var(--block-small);
+  padding-right: 5%;
 }
 </style>
