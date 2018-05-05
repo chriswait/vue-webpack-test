@@ -5,11 +5,16 @@
   "repository": "git@github.com:chriswait/grid.git",
   "author": "chriswait <chriswait91@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "build": "webpack --config build/webpack.config.dev.js"
+  },
   "dependencies": {
     "vue": "^2.5.16",
     "webpack": "^4.7.0"
   },
   "devDependencies": {
+    "vue-loader": "^15.0.9",
+    "vue-template-compiler": "^2.5.16",
     "webpack-cli": "^2.1.2"
   }
 }
