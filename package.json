@@ -1,0 +1,15 @@
+{
+  "name": "grid",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:chriswait/grid.git",
+  "author": "chriswait <chriswait91@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "vue": "^2.5.16",
+    "webpack": "^4.7.0"
+  },
+  "devDependencies": {
+    "webpack-cli": "^2.1.2"
+  }
+}
