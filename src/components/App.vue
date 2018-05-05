@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="test-class">
     <h1>{{ greeting }}</h1>
     <h2>{{ test.foo }}</h2>
   </div>
