@@ -1,34 +1,147 @@
 <template>
   <div>
     <div class="calculator-container">
-      <div class="screen">0</div>
+      <div class="screen">{{ displayValue }}</div>
 
-      <button class="calculator-button top-row">AC</button>
-      <button class="calculator-button top-row">&PlusMinus;</button>
-      <button class="calculator-button top-row">&percnt;</button>
-      <button class="calculator-button operator">&divide;</button>
-
-      <button class="calculator-button">7</button>
-      <button class="calculator-button">8</button>
-      <button class="calculator-button">9</button>
-      <button class="calculator-button operator">&times;</button>
-
-      <button class="calculator-button">4</button>
-      <button class="calculator-button">5</button>
-      <button class="calculator-button">6</button>
-      <button class="calculator-button operator">&minus;</button>
-
-      <button class="calculator-button">1</button>
-      <button class="calculator-button">2</button>
-      <button class="calculator-button">3</button>
-      <button class="calculator-button operator">&plus;</button>
-
-      <button class="calculator-button zero">0</button>
-      <button class="calculator-button">.</button>
-      <button class="calculator-button operator">&equals;</button>
+      <button
+        class="calculator-button top-row"
+        @click="handlePress('AC')">AC</button>
+      <button
+        class="calculator-button top-row"
+        @click="handlePress('&PlusMinus;')">&PlusMinus;</button>
+      <button
+        class="calculator-button top-row"
+        @click="handlePress('&percnt;')">&percnt;</button>
+      <button
+        class="calculator-button operator"
+        @click="handlePress('&divide;')">&divide;</button>
+      <button
+        class="calculator-button"
+        @click="handlePress(7)">7</button>
+      <button
+        class="calculator-button"
+        @click="handlePress(8)">8</button>
+      <button
+        class="calculator-button"
+        @click="handlePress(9)">9</button>
+      <button
+        class="calculator-button operator"
+        @click="handlePress('&times;')">&times;</button>
+      <button
+        class="calculator-button"
+        @click="handlePress(4)">4</button>
+      <button
+        class="calculator-button"
+        @click="handlePress(5)">5</button>
+      <button
+        class="calculator-button"
+        @click="handlePress(6)">6</button>
+      <button
+        class="calculator-button operator"
+        @click="handlePress('&minus;')">&minus;</button>
+      <button
+        class="calculator-button"
+        @click="handlePress(1)">1</button>
+      <button
+        class="calculator-button"
+        @click="handlePress(2)">2</button>
+      <button
+        class="calculator-button"
+        @click="handlePress(3)">3</button>
+      <button
+        class="calculator-button operator"
+        @click="handlePress('&plus;')">&plus;</button>
+      <button
+        class="calculator-button zero"
+        @click="handlePress(0)">0</button>
+      <button
+        class="calculator-button"
+        @click="handlePress('.')">.</button>
+      <button
+        class="calculator-button operator"
+        @click="handlePress('&equals;')">&equals;</button>
     </div>
   </div>
 </template>
+
+<script>
+export class CalculatorThing {
+  constructor () {
+    this.allCancel()
+  }
+  appendNumber (number) {
+    if (this.current === '0') {
+      this.current = number.toString()
+    } else {
+      this.current += number.toString()
+    }
+    return this.current
+  }
+  doOp (operator) {
+    if (this.currentOperator === operator) {
+    } else {
+    }
+    this.currentOperator = operator
+    this.left = this.current
+    this.current = '0'
+    return this.current
+  }
+  equals () {
+    let result
+    if (!this.currentOperator) {
+      result = parseFloat(this.current)
+    } else if (this.currentOperator === '+') {
+      result = parseFloat(this.left) + parseFloat(this.current)
+    } else if (this.currentOperator === '-') {
+      result = parseFloat(this.left) - parseFloat(this.current)
+    } else if (this.currentOperator === '*') {
+      result = parseFloat(this.left) * parseFloat(this.current)
+    } else if (this.currentOperator === '/') {
+      result = parseFloat(this.left) / parseFloat(this.current)
+    }
+    if (typeof (result) !== 'undefined') {
+      this.current = result.toString()
+    }
+    return this.current
+  }
+  allCancel () {
+    this.left = ''
+    this.cancel()
+    this.currentOperator = ''
+  }
+  cancel () {
+    this.current = '0'
+  }
+}
+const entityToOp = {
+  '&plus;': '+',
+  '&minus;': '-',
+  '&times;': '*',
+  '&divide;': '/',
+  '&equals;': '='
+}
+export default {
+  data: function () {
+    return {
+      displayValue: this.calculator.current
+    }
+  },
+  beforeCreate: function () {
+    this.calculator = new CalculatorThing()
+  },
+  methods: {
+    handlePress: function (pressed) {
+      if (typeof (pressed) === 'number' || pressed === '.') {
+        this.displayValue = this.calculator.appendNumber(pressed)
+      } else if (entityToOp[pressed] === '=') {
+        this.displayValue = this.calculator.equals()
+      } else {
+        this.displayValue = this.calculator.doOp(entityToOp[pressed])
+      }
+    }
+  }
+}
+</script>
 
 <style scoped>
 button {
