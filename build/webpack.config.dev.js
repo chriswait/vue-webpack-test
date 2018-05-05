@@ -3,6 +3,7 @@
 const webpack = require('webpack')
 const { VueLoaderPlugin } = require('vue-loader')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   mode: 'development',
@@ -40,7 +41,12 @@ module.exports = {
       filename: 'index.html',
       template: 'index.html',
       inject: true
-    })
+    }),
+    new CopyWebpackPlugin([{
+      from: 'src/static',
+      to: 'dist/static',
+      toType: 'dir'
+    }])
   ],
   devServer: {
     hot: true
