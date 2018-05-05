@@ -9,6 +9,14 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.(js|vue)$/,
+        loader: 'eslint-loader',
+        enforce: 'pre',
+        options: {
+          fix: true
+        }
+      },
+      {
         test: /\.vue$/,
         use: 'vue-loader'
       },
