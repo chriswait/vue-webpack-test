@@ -53,58 +53,38 @@
           <div class="day-name">Fri</div>
           <div class="day-name">Sat</div>
 
-          <div class="day">1</div>
-          <div class="day">2</div>
-          <div class="day">3</div>
-          <div class="day">4</div>
-          <div class="day">5</div>
-          <div class="day">6</div>
-          <div class="day">7</div>
-
-          <div class="day">8</div>
-          <div class="day">9</div>
-          <div class="day">10</div>
-          <div class="day">11</div>
-          <div class="day">12</div>
-          <div class="day">13</div>
-          <div class="day">14</div>
-
-          <div class="day">15</div>
-          <div class="day">16</div>
-          <div class="day">17</div>
-          <div class="day">18</div>
-          <div class="day">19</div>
-          <div class="day">20</div>
-          <div class="day">21</div>
-
-          <div class="day">22</div>
-          <div class="day">23</div>
-          <div class="day">24</div>
-          <div class="day">25</div>
-          <div class="day">26</div>
-          <div class="day">27</div>
-          <div class="day">28</div>
-
-          <div class="day">29</div>
-          <div class="day">30</div>
-          <div class="day">1</div>
-          <div class="day">2</div>
-          <div class="day">3</div>
-          <div class="day">4</div>
-          <div class="day">5</div>
-
-          <div class="day">6</div>
-          <div class="day">7</div>
-          <div class="day">8</div>
-          <div class="day">9</div>
-          <div class="day">10</div>
-          <div class="day">11</div>
-          <div class="day">12</div>
+          <calendar-day
+            v-for="day in days"
+            v-bind="day"
+            :key="day.id"
+            class="day"/>
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+import CalendarDay from './CalendarDay.vue'
+var calDays = []
+for (let i = 0; i < 7 * 6; i++) {
+  calDays.push({
+    id: i,
+    number: (i + 1) % 30
+  })
+}
+
+export default {
+  components: {
+    'calendar-day': CalendarDay
+  },
+  data () {
+    return {
+      days: calDays
+    }
+  }
+}
+</script>
 
 <style scoped>
 .app-container {
@@ -204,12 +184,4 @@
   border-bottom: 1px solid var(--stroke-dark);
   padding-right: var(--block-small);
 }
-
-.day {
-  border: var(--day-border);
-  padding-top: 6px;
-  padding-right: var(--block-small);
-  text-align: right;
-}
-
 </style>
