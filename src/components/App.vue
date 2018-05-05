@@ -1,24 +1,24 @@
 <template>
   <div>
-    <h1>{{greeting}}</h1>
-    <h2>{{test.foo}}</h2>
+    <h1>{{ greeting }}</h1>
+    <h2>{{ test.foo }}</h2>
   </div>
 </template>
 
 <script>
 class Test {
-  constructor() {
+  constructor () {
     this.foo = 'bar'
   }
 }
 export default {
-  data() {
+  data () {
     return {
       greeting: 'Hello, World!',
-      test: function() {
+      test: (function () {
         let test = new Test()
-        return test;
-      }()
+        return test
+      }())
     }
   }
 }
