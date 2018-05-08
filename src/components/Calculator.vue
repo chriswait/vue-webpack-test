@@ -1,66 +1,64 @@
 <template>
-  <div>
-    <div class="calculator-container">
-      <div class="screen">{{ displayValue }}</div>
+  <div class="calculator-container">
+    <div class="screen">{{ displayValue }}</div>
 
-      <button
-        class="calculator-button top-row"
-        @click="handlePress('AC')">AC</button>
-      <button
-        class="calculator-button top-row"
-        @click="handlePress('&PlusMinus;')">&PlusMinus;</button>
-      <button
-        class="calculator-button top-row"
-        @click="handlePress('&percnt;')">&percnt;</button>
-      <button
-        class="calculator-button operator"
-        @click="handlePress('&divide;')">&divide;</button>
-      <button
-        class="calculator-button"
-        @click="handlePress(7)">7</button>
-      <button
-        class="calculator-button"
-        @click="handlePress(8)">8</button>
-      <button
-        class="calculator-button"
-        @click="handlePress(9)">9</button>
-      <button
-        class="calculator-button operator"
-        @click="handlePress('&times;')">&times;</button>
-      <button
-        class="calculator-button"
-        @click="handlePress(4)">4</button>
-      <button
-        class="calculator-button"
-        @click="handlePress(5)">5</button>
-      <button
-        class="calculator-button"
-        @click="handlePress(6)">6</button>
-      <button
-        class="calculator-button operator"
-        @click="handlePress('&minus;')">&minus;</button>
-      <button
-        class="calculator-button"
-        @click="handlePress(1)">1</button>
-      <button
-        class="calculator-button"
-        @click="handlePress(2)">2</button>
-      <button
-        class="calculator-button"
-        @click="handlePress(3)">3</button>
-      <button
-        class="calculator-button operator"
-        @click="handlePress('&plus;')">&plus;</button>
-      <button
-        class="calculator-button zero"
-        @click="handlePress(0)">0</button>
-      <button
-        class="calculator-button"
-        @click="handlePress('.')">.</button>
-      <button
-        class="calculator-button operator"
-        @click="handlePress('&equals;')">&equals;</button>
-    </div>
+    <button
+      class="calculator-button top-row"
+      @click="handlePress('AC')">AC</button>
+    <button
+      class="calculator-button top-row"
+      @click="handlePress('&PlusMinus;')">&PlusMinus;</button>
+    <button
+      class="calculator-button top-row"
+      @click="handlePress('&percnt;')">&percnt;</button>
+    <button
+      class="calculator-button operator"
+      @click="handlePress('/')">&divide;</button>
+    <button
+      class="calculator-button"
+      @click="handlePress(7)">7</button>
+    <button
+      class="calculator-button"
+      @click="handlePress(8)">8</button>
+    <button
+      class="calculator-button"
+      @click="handlePress(9)">9</button>
+    <button
+      class="calculator-button operator"
+      @click="handlePress('*')">&times;</button>
+    <button
+      class="calculator-button"
+      @click="handlePress(4)">4</button>
+    <button
+      class="calculator-button"
+      @click="handlePress(5)">5</button>
+    <button
+      class="calculator-button"
+      @click="handlePress(6)">6</button>
+    <button
+      class="calculator-button operator"
+      @click="handlePress('-')">&minus;</button>
+    <button
+      class="calculator-button"
+      @click="handlePress(1)">1</button>
+    <button
+      class="calculator-button"
+      @click="handlePress(2)">2</button>
+    <button
+      class="calculator-button"
+      @click="handlePress(3)">3</button>
+    <button
+      class="calculator-button operator"
+      @click="handlePress('+')">&plus;</button>
+    <button
+      class="calculator-button zero"
+      @click="handlePress(0)">0</button>
+    <button
+      class="calculator-button"
+      @click="handlePress('.')">.</button>
+    <button
+      class="calculator-button operator"
+      @click="handlePress('=')">&equals;</button>
   </div>
 </template>
 
@@ -68,62 +66,66 @@
 export class CalculatorThing {
   constructor () {
     this.allCancel()
+    this.building = false
   }
-  appendNumber (number) {
-    if (this.current === '0') {
-      this.current = number.toString()
-    } else {
-      this.current += number.toString()
-    }
-    return this.current
+  cancel () {
+    this.right = '0'
   }
-  doOp (operator) {
-    if (this.currentOperator === operator) {
+  allCancel () {
+    this.left = '0'
+    this.right = '0'
+    this.pendingOperator = null
+  }
+  addInput (input) {
+    if (input === '.') {
+      if (!this.right.includes('.')) {
+        this.right += '.'
+      }
     } else {
+      if (this.pendingOperator && this.building) {
+        this.cancel()
+        this.building = false
+      }
+      this.right += input.toString()
+      this.right = this.right.replace(/0*(\d+)/, (match, match1) => match1)
     }
-    this.currentOperator = operator
-    this.left = this.current
-    this.current = '0'
-    return this.current
+  }
+  addOp (operator) {
+    if (operator === 'AC') {
+      this.allCancel()
+    } else {
+      if (this.pendingOperator) {
+        this.equals()
+      }
+
+      this.pendingOperator = operator
+      this.left = this.right
+      this.building = true
+    }
   }
   equals () {
     let result
-    if (!this.currentOperator) {
-      result = parseFloat(this.current)
-    } else if (this.currentOperator === '+') {
-      result = parseFloat(this.left) + parseFloat(this.current)
-    } else if (this.currentOperator === '-') {
-      result = parseFloat(this.left) - parseFloat(this.current)
-    } else if (this.currentOperator === '*') {
-      result = parseFloat(this.left) * parseFloat(this.current)
-    } else if (this.currentOperator === '/') {
-      result = parseFloat(this.left) / parseFloat(this.current)
+    if (this.pendingOperator === '+') {
+      result = parseFloat(this.left) + parseFloat(this.right)
+    } else if (this.pendingOperator === '-') {
+      result = parseFloat(this.left) - parseFloat(this.right)
+    } else if (this.pendingOperator === '*') {
+      result = parseFloat(this.left) * parseFloat(this.right)
+    } else if (this.pendingOperator === '/') {
+      result = parseFloat(this.left) / parseFloat(this.right)
+    } else {
+      result = parseFloat(this.right)
     }
-    if (typeof (result) !== 'undefined') {
-      this.current = result.toString()
-    }
-    return this.current
+    this.left = result.toString()
   }
-  allCancel () {
-    this.left = ''
-    this.cancel()
-    this.currentOperator = ''
+  get displayValue () {
+    return this.right
   }
-  cancel () {
-    this.current = '0'
-  }
-}
-const entityToOp = {
-  '&plus;': '+',
-  '&minus;': '-',
-  '&times;': '*',
-  '&divide;': '/',
-  '&equals;': '='
 }
 export default {
   data: function () {
     return {
-      displayValue: this.calculator.current
+      displayValue: this.calculator.right
     }
   },
   beforeCreate: function () {
@@ -132,12 +134,13 @@ export default {
   methods: {
     handlePress: function (pressed) {
       if (typeof (pressed) === 'number' || pressed === '.') {
-        this.displayValue = this.calculator.appendNumber(pressed)
-      } else if (entityToOp[pressed] === '=') {
-        this.displayValue = this.calculator.equals()
+        this.calculator.addInput(pressed)
+      } else if (pressed === '=') {
+        this.calculator.equals()
       } else {
-        this.displayValue = this.calculator.doOp(entityToOp[pressed])
+        this.calculator.addOp(pressed)
       }
+      this.displayValue = this.calculator.displayValue
     }
   }
 }
